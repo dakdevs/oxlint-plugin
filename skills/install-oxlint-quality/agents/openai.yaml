@@ -1,0 +1,3 @@
+interface:
+  display_name: "Install Oxlint Quality"
+  short_description: "Install shared Oxlint quality rules and presets"

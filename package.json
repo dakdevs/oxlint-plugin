@@ -1,0 +1,91 @@
+{
+  "name": "@dakdevs/oxlint-plugin",
+  "version": "0.1.0",
+  "description": "Opinionated Oxlint quality rules and reusable policy presets.",
+  "keywords": [
+    "linting",
+    "oxc",
+    "oxlint",
+    "typescript"
+  ],
+  "homepage": "https://github.com/dakdevs/oxlint-plugin#readme",
+  "bugs": "https://github.com/dakdevs/oxlint-plugin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dakdevs/oxlint-plugin.git"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "private": false,
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "dak-oxlint": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "LICENSES",
+    "NOTICE",
+    "README.md",
+    "PROVENANCE.md",
+    "skills"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/make-cli-executable.mjs",
+    "check": "pnpm lint && pnpm test && pnpm typecheck && pnpm build && pnpm check:package && pnpm check:integration",
+    "check:integration": "node scripts/package-integration.mjs",
+    "check:package": "publint && attw --pack . --profile esm-only",
+    "lint": "pnpm build && oxlint src scripts",
+    "prepack": "pnpm lint && pnpm test && pnpm typecheck && pnpm build",
+    "test": "tsx --test src/*.test.ts src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "dependencies": {
+    "@oxlint/plugins": "^1.78.0",
+    "jsonc-parser": "^3.3.1"
+  },
+  "peerDependencies": {
+    "@effect/tsgo": ">=0.36.5 <0.39.0",
+    "oxlint": ">=1.78.0 <2.0.0",
+    "oxlint-tsgolint": ">=7.0.2001 <8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@effect/tsgo": {
+      "optional": true
+    },
+    "oxlint-tsgolint": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
+    "@effect/tsgo": "0.36.5",
+    "@types/node": "^24.0.0",
+    "oxlint": "1.80.0",
+    "oxlint-tsgolint": "7.0.2001",
+    "publint": "0.3.24",
+    "tsx": "4.23.12",
+    "typescript": "7.0.2"
+  }
+}

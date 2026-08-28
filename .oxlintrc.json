@@ -1,0 +1,52 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error"
+  },
+  "ignorePatterns": [
+    "dist/**",
+    "node_modules/**",
+    "skills/**",
+    "test/fixtures/**"
+  ],
+  "jsPlugins": [
+    {
+      "name": "quality",
+      "specifier": "./dist/index.js"
+    }
+  ],
+  "options": {
+    "reportUnusedDisableDirectives": "error"
+  },
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "node"],
+  "rules": {
+    "complexity": ["error", { "max": 12 }],
+    "no-debugger": "error",
+    "no-unmodified-loop-condition": "error",
+    "no-unsafe-optional-chaining": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "fix": { "imports": "off" },
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "quality/no-conditional-empty-object-spread": "error",
+    "quality/no-shape-in-symbol-names": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/rules/no-object-parameters.ts",
+        "src/rules/no-unknown-returns.ts",
+        "src/rules/no-widen-then-assert.ts",
+        "src/shared/dictionary-types.ts"
+      ],
+      "rules": {
+        "complexity": "off"
+      }
+    }
+  ]
+}

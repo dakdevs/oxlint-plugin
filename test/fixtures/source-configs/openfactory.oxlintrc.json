@@ -1,0 +1,54 @@
+{
+	"$schema": "./node_modules/@effect/tsgo/oxlint-schema.json",
+	"extends": [
+		"./node_modules/@effect/tsgo/oxlint-presets/recommended.json",
+		"./node_modules/@effect/tsgo/oxlint-presets/antipattern.json",
+		"./node_modules/@effect/tsgo/oxlint-presets/effect-native.json",
+		"./node_modules/@effect/tsgo/oxlint-presets/style.json"
+	],
+	"plugins": [
+		"effecttsgo",
+		"typescript",
+		"unicorn",
+		"oxc",
+		"import",
+		"node",
+		"promise",
+		"vitest"
+	],
+	"jsPlugins": [
+		{
+			"name": "type-discipline",
+			"specifier": "./tooling/oxlint/type-discipline.ts"
+		}
+	],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "error",
+		"perf": "error",
+		"pedantic": "error"
+	},
+	"options": {
+		"typeAware": true,
+		"reportUnusedDisableDirectives": "error"
+	},
+	"rules": {
+		"no-debugger": "error",
+		"complexity": ["error", { "max": 12, "variant": "classic" }],
+		"type-discipline/no-generic-record-guard": "error",
+		"type-discipline/no-unjustified-type-predicate": "error",
+		"type-discipline/extensionless-relative-code-imports": "error",
+		"import/no-cycle": "error",
+		"import/no-namespace": "error",
+		"oxc/no-map-spread": ["error", { "ignoreArgs": false }],
+		"typescript/no-explicit-any": "error",
+		"typescript/no-unsafe-argument": "error",
+		"typescript/no-unsafe-assignment": "error",
+		"typescript/no-unsafe-call": "error",
+		"typescript/no-unsafe-member-access": "error",
+		"typescript/no-unsafe-return": "error",
+		"typescript/prefer-readonly-parameter-types": "off",
+		"unicorn/no-array-callback-reference": "off"
+	},
+	"ignorePatterns": ["**/dist/**", "**/node_modules/**"]
+}

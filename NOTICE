@@ -1,0 +1,10 @@
+This package includes rule implementations derived from anti-slop:
+https://github.com/dmmulroy/anti-slop
+
+anti-slop is distributed under the MIT License:
+
+Copyright (c) 2026 Dillon Mulroy
+
+The original MIT terms covering the derived portions are reproduced in
+LICENSES/anti-slop-MIT.txt.
+See PROVENANCE.md for the source revisions and normalized rule identities.
