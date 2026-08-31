@@ -3,8 +3,26 @@ import test from "node:test";
 
 import { defineConfig } from "./index.js";
 
-test("recommended config enables the conservative quality baseline", () => {
+test("default config enables every quality preset", () => {
   const config = defineConfig();
+
+  assert.equal(config.options?.typeAware, true);
+  assert.equal(config.rules?.["quality/no-shape-in-symbol-names"], "error");
+  assert.equal(config.rules?.["quality/no-known-value-widening"], "error");
+  assert.equal(config.rules?.["quality/no-runtime-typeof"], "error");
+  assert.equal(config.rules?.["quality/no-module-mocking"], "error");
+  assert.equal(config.rules?.["quality/no-exported-types"], "error");
+  assert.equal(config.rules?.["react/no-array-index-key"], "error");
+  assert.equal(
+    config.rules?.["effecttsgo/any-unknown-in-error-context"],
+    "warn",
+  );
+  assert.equal(config.rules?.["effecttsgo/floating-effect"], "error");
+  assert.equal(config.rules?.["quality/no-type-assertions"], "error");
+});
+
+test("recommended config remains available as a conservative opt-down", () => {
+  const config = defineConfig({ presets: ["recommended"] });
 
   assert.deepEqual(config.jsPlugins, [
     { name: "quality", specifier: "@dakdevs/oxlint-plugin" },
@@ -56,5 +74,9 @@ test("effect config composes type-aware and Effect presets", () => {
   assert.equal(config.options?.typeAware, true);
   assert.equal(config.rules?.["typescript/no-unsafe-assignment"], "error");
   assert.ok(config.plugins?.join(",").includes("effecttsgo"));
-  assert.ok("effecttsgo/floating-effect" in (config.rules ?? {}));
+  assert.equal(
+    config.rules?.["effecttsgo/any-unknown-in-error-context"],
+    "warn",
+  );
+  assert.equal(config.rules?.["effecttsgo/floating-effect"], "error");
 });

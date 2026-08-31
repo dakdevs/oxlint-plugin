@@ -5,36 +5,41 @@ description: Install or update @dakdevs/oxlint-plugin and configure its Oxlint q
 
 # Install Oxlint quality
 
-Use the package initializer to preserve existing policy while adding the requested presets.
+Use the package initializer to preserve existing policy while adding the full quality and formatting baseline. The default is `all`; `--preset` is an explicit opt-down.
 
 1. Inspect the target repository before changing it:
    - Read its agent instructions and check `git status`.
    - Identify its package manager and Oxlint configuration.
-   - Check direct dependencies for React, Next.js, Effect, TypeScript, and `oxlint-tsgolint`.
+   - Inspect existing Oxfmt, Prettier, and Biome configuration so formatter migration does not discard local policy.
+   - Check all four Oxfmt auto-discovered config names: `.oxfmtrc.json`, `.oxfmtrc.jsonc`, `oxfmt.config.ts`, and `oxfmt.config.mts`. Stop for a manual choice if more than one exists.
    - Detect local copies of anti-slop, boundary, or type-discipline rules. Do not delete them during initial installation.
 
 2. Select presets:
-   - Use `recommended` when the user did not request a category.
-   - Enable `react-next`, `effect`, `type-aware`, `strict`, or other opt-in presets only when the user requests them.
-   - If direct dependencies make an optional preset relevant, mention it before enabling it. A transitive lockfile entry is not enough.
+   - Use `all` when the user did not request a narrower policy.
+   - Treat one or more `--preset` flags as an explicit selection; do not silently add other presets.
+   - `all` installs the tested tooling tuple: Oxlint 1.80, Oxfmt `^0.65`, TypeScript 7.0.2, `oxlint-tsgolint` 7.0.2001, and `@effect/tsgo` 0.38.
 
 3. Query npm for the current package version, then preview the exact change:
 
    ```bash
    npm view @dakdevs/oxlint-plugin version
-   npx --yes @dakdevs/oxlint-plugin@<version> init --dry-run --preset recommended
+   npx --yes @dakdevs/oxlint-plugin@<version> init --dry-run
    ```
 
-   Repeat `--preset` for each requested category. Review the reported config and dependency changes before applying them.
+   For a requested subset, repeat `--preset` for each selected category. Review the reported Oxlint config, Oxfmt config, scripts, and dependency changes before applying them.
 
 4. Apply the reviewed plan:
 
    ```bash
-   npx --yes @dakdevs/oxlint-plugin@<version> init --yes --preset recommended
+   npx --yes @dakdevs/oxlint-plugin@<version> init --yes
    ```
 
-   The initializer safely edits JSON/JSONC configs and creates the canonical TypeScript config when none exists. If it reports an ambiguous existing TypeScript config, manually import `defineConfig` from `@dakdevs/oxlint-plugin/config`, wrap the existing policy, and preserve local rules as final overrides.
+   The initializer safely edits JSON/JSONC Oxlint configs and creates the canonical TypeScript config when none exists. If it reports an ambiguous existing TypeScript config, manually import `defineConfig` from `@dakdevs/oxlint-plugin/config`, wrap the existing policy, and preserve local rules as final overrides.
 
-5. Run the repository's lint and typecheck commands. When `type-aware` or `effect` is selected, verify that the repository is compatible with TypeScript 7 and that `oxlint-tsgolint` is installed.
+   It creates `.oxfmtrc.json` with `singleQuote: true` and `semi: false` if none exists, or updates only those fields in JSON/JSONC Oxfmt configs. For existing `oxfmt.config.ts` or `oxfmt.config.mts`, manually merge those settings without removing local Oxfmt policy. Oxfmt is deliberately a committed formatter config separate from the shared Oxlint config.
 
-Report the selected presets, dependency versions, config path, checks run, and remaining findings. Do not weaken rules, add unsafe assertions, or remove old local plugins until parity has been reviewed.
+   Add the official scripts only when absent: `lint` (`oxlint`), `lint:fix` (`oxlint --fix`), `fmt` (`oxfmt`), and `fmt:check` (`oxfmt --check`). Preserve any conflicting local script and report the command to run separately. For `all` or `effect`, the initializer must run `effect-tsgo patch --no-typescript --oxlint` and persist it in `prepare`; compose it after an existing `prepare` command without removing that command or adding the patch twice. If `--skip-install` defers the patch because dependencies are missing, run it immediately after dependency installation.
+
+5. Validate the resulting configuration with the repository's commands, or directly run `oxlint`, `oxfmt --check`, and the typecheck command when scripts are absent. When `type-aware`, `effect`, or `all` is selected, verify TypeScript 7 plus `oxlint-tsgolint`; `effect` and `all` also require `@effect/tsgo`.
+
+Report the selected presets, dependency versions, Oxlint and Oxfmt config paths, scripts added or preserved, checks run, and remaining findings. Follow repository agent guidance throughout, but do not automatically rewrite `AGENTS.md`. Do not weaken rules, add unsafe assertions, or remove old local plugins until parity has been reviewed.
