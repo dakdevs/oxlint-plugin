@@ -5,29 +5,38 @@ Reusable Oxlint quality rules and policy presets collected from real production 
 ## Install
 
 ```bash
-pnpm add --save-dev @dakdevs/oxlint-plugin oxlint
+pnpm add --save-dev @dakdevs/oxlint-plugin oxlint@1.80.0 oxfmt@^0.65.0 oxlint-tsgolint@7.0.2001 typescript@7.0.2 @effect/tsgo@0.38.0
+pnpm exec effect-tsgo patch --no-typescript --oxlint
 ```
 
 Create `oxlint.config.ts`:
 
 ```ts
-import { defineConfig } from "@dakdevs/oxlint-plugin/config";
+import { defineConfig } from '@dakdevs/oxlint-plugin/config'
 
-export default defineConfig({
-  presets: ["recommended", "type-safety"],
-});
+export default defineConfig()
 ```
 
-Calling `defineConfig()` without arguments selects `recommended`. When `presets` is provided, only the listed presets are composed. Repository-local fields and rules are merged last, so local policy wins.
+`defineConfig()` enables every preset. Supply `presets` only to opt down to an explicit subset; repository-local fields and rules are merged last, so local policy wins.
 
-For an existing JSON, JSONC, or TypeScript setup, preview the initializer first:
+For an existing JSON, JSONC, or TypeScript setup, preview the initializer first. With no `--preset`, the CLI also selects `all`:
 
 ```bash
-npx @dakdevs/oxlint-plugin init --dry-run --preset recommended
-npx @dakdevs/oxlint-plugin init --yes --preset recommended
+npx @dakdevs/oxlint-plugin init --dry-run
+npx @dakdevs/oxlint-plugin init --yes
 ```
 
-Repeat `--preset` to compose categories. The initializer preserves existing JSON/JSONC policy, creates the canonical TypeScript config when none exists, detects npm/pnpm/Yarn/Bun, and refuses ambiguous TypeScript rewrites. Use `--skip-install` when dependencies are already managed separately.
+Pass `--preset` to opt down, and repeat it to compose an explicit subset:
+
+```bash
+npx @dakdevs/oxlint-plugin init --yes --preset recommended --preset type-safety
+```
+
+The initializer preserves existing JSON/JSONC Oxlint policy, creates the canonical TypeScript config when none exists, detects npm/pnpm/Yarn/Bun, and refuses ambiguous TypeScript rewrites. It also installs a tested tooling tuple: this package, Oxlint 1.80, Oxfmt (`^0.65`), TypeScript 7.0.2, `oxlint-tsgolint` 7.0.2001, and `@effect/tsgo` 0.38. Effect-backed presets are supported on x64 and arm64 glibc Linux, macOS, and Windows; unsupported targets fail before installation and can opt down with explicit `--preset` flags that exclude `effect`.
+
+It commits a separate `.oxfmtrc.json` when no formatter config exists, with `singleQuote: true` and `semi: false`; JSON/JSONC Oxfmt configs keep their other settings while those two project-style settings are enforced. Existing `oxfmt.config.ts` or `oxfmt.config.mts` files require a manual merge. The initializer adds `lint`, `lint:fix`, `fmt`, and `fmt:check` scripts only when missing, preserving conflicting local scripts. For `all` or `effect`, it also patches Oxlint's type-aware backend and persists the patch in `prepare`; an existing `prepare` command is retained and the patch is appended idempotently so later clean installs remain patched. Use `--skip-install` when dependencies are already managed separately; if they are not present yet, run `effect-tsgo patch --no-typescript --oxlint` after installing them.
+
+This follows Oxc's supported auto-discovery for committed [Oxlint configuration](https://oxc.rs/docs/guide/usage/linter/config.html) and separate [Oxfmt configuration](https://oxc.rs/docs/guide/usage/formatter/config.html). The custom `quality` plugin is registered through Oxlint `jsPlugins`, which Oxc currently labels alpha.
 
 ## Presets
 
@@ -41,11 +50,11 @@ Repeat `--preset` to compose categories. The initializer preserves existing JSON
 | `testing` | Real dependency seams instead of module mocking |
 | `architecture` | Exported-type boundary policy |
 | `react-next` | Stricter adopted React, Hooks, JSX accessibility, and Next.js settings |
-| `effect` | `type-aware`, adopted Effect overrides, and four `@effect/tsgo` presets |
+| `effect` | `type-aware`, adopted Effect overrides, and all five `@effect/tsgo` presets |
 | `strict` | High-friction pedantic policy, including no assertions and extensionless relative code imports |
-| `all` | Every compatible preset, intended for evaluation and migration work |
+| `all` | Every compatible preset; the default for `defineConfig()` and the initializer |
 
-`type-aware` requires TypeScript 7 and `oxlint-tsgolint`. `effect` additionally requires `@effect/tsgo`; these are optional peer dependencies and are installed by the initializer when selected.
+`type-aware` requires TypeScript 7 and `oxlint-tsgolint`. `effect` additionally requires `@effect/tsgo`. The initializer installs these with the default `all` policy; explicit subsets install only the tooling they need.
 
 ## Custom rules
 

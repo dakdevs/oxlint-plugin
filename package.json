@@ -62,13 +62,14 @@
     "provenance": true
   },
   "dependencies": {
-    "@oxlint/plugins": "^1.78.0",
+    "@oxlint/plugins": "1.80.0",
     "jsonc-parser": "^3.3.1"
   },
   "peerDependencies": {
-    "@effect/tsgo": ">=0.36.5 <0.39.0",
-    "oxlint": ">=1.78.0 <2.0.0",
-    "oxlint-tsgolint": ">=7.0.2001 <8.0.0"
+    "@effect/tsgo": "0.38.0",
+    "oxlint": ">=1.80.0 <1.81.0",
+    "oxlint-tsgolint": "7.0.2001",
+    "typescript": "7.0.2"
   },
   "peerDependenciesMeta": {
     "@effect/tsgo": {
@@ -76,11 +77,14 @@
     },
     "oxlint-tsgolint": {
       "optional": true
+    },
+    "typescript": {
+      "optional": true
     }
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@effect/tsgo": "0.36.5",
+    "@effect/tsgo": "0.38.0",
     "@types/node": "^24.0.0",
     "oxlint": "1.80.0",
     "oxlint-tsgolint": "7.0.2001",

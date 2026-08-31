@@ -263,10 +263,12 @@ function mergeConfigFragments(fragments: readonly OxlintConfig[]): OxlintConfig 
 
 function effectPreset(): OxlintConfig {
   const require = createRequire(import.meta.url);
-  // SAFETY: The optional peer exports these four values as OxlintConfig objects.
+  // SAFETY: The optional peer exports these preset values as OxlintConfig objects.
   const effectPresets = require("@effect/tsgo/oxlint-presets") as typeof import("@effect/tsgo/oxlint-presets");
   return mergeConfigFragments([
     typeAwareConfig,
+    // Keep Effect's recommended severities authoritative for its overlapping rules.
+    effectPresets.correctness,
     effectPresets.recommended,
     effectPresets.antipattern,
     effectPresets.effectNative,
@@ -287,7 +289,7 @@ function configForPreset(name: Exclude<PresetName, "all">): OxlintConfig {
 
 /** Compose quality policy presets with repository-local Oxlint configuration. */
 export function defineConfig(config: QualityConfig = {}): OxlintConfig {
-  const { presets = ["recommended"], ...localConfig } = config;
+  const { presets = ["all"], ...localConfig } = config;
   const selectedConfigs = expandPresetNames(presets).map(configForPreset);
   return mergeConfigFragments([
     { jsPlugins: [qualityPlugin] },
