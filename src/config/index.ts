@@ -263,7 +263,7 @@ function mergeConfigFragments(fragments: readonly OxlintConfig[]): OxlintConfig 
 
 function effectPreset(): OxlintConfig {
   const require = createRequire(import.meta.url);
-  // SAFETY: The optional peer exports these four values as OxlintConfig objects.
+  // SAFETY: The optional peer exports these preset values as OxlintConfig objects.
   const effectPresets = require("@effect/tsgo/oxlint-presets") as typeof import("@effect/tsgo/oxlint-presets");
   return mergeConfigFragments([
     typeAwareConfig,
