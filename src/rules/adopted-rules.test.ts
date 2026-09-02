@@ -76,7 +76,12 @@ tester.run("quality/no-generic-record-guard", noGenericRecordGuardRule, {
   invalid: [
     {
       code: "function isRecord(value: unknown) { return value; }",
-      errors: [{ messageId: "forbidden" }],
+      errors: [
+        {
+          message:
+            "Let TypeScript infer the type from downstream usage instead of using `isRecord` or another programmatic type check. Do not cast with `as`; only `as const` is allowed.",
+        },
+      ],
     },
   ],
 });

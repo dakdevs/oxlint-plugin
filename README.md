@@ -73,7 +73,7 @@ All custom rule IDs use the `quality/` namespace.
 | Type safety | `no-unsafe-dictionary-type` | Reject dictionaries whose values are `unknown`, `any`, `object`, or empty objects |
 | Type safety | `no-widen-then-assert` | Reject local flows that widen a known value and later assert it back |
 | Type safety | `require-safety-comment-for-type-assertion` | Require a checked-invariant explanation for non-const assertions |
-| Boundaries | `no-generic-record-guard` | Require an explicit boundary schema instead of a generic record guard |
+| Boundaries | `no-generic-record-guard` | Prefer downstream TypeScript inference to generic record guards and programmatic type checks; do not replace them with `as` casts |
 | Boundaries | `no-unjustified-type-predicate` | Require schema decoding or the adopted adjacent boundary exception |
 | Boundaries | `no-runtime-typeof` | Prefer boundary decoding to ad hoc runtime `typeof` narrowing |
 | Boundaries | `no-reflect-apply` | Prefer typed calls to `Reflect.apply` |
