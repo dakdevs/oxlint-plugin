@@ -2,17 +2,17 @@ import { defineRule } from "@oxlint/plugins";
 
 const forbiddenGuardName = ["is", "Record"].join("");
 
-/** Require explicit schemas at unknown-data boundaries instead of generic record guards. */
+/** Prefer downstream TypeScript inference to generic record guards and type assertions. */
 export const noGenericRecordGuardRule = defineRule({
   meta: {
     type: "problem",
     docs: {
       description:
-        "Require explicit schemas at unknown-data boundaries instead of generic record guards.",
+        "Prefer downstream TypeScript inference to generic record guards and programmatic type checks without replacing them with type assertions.",
     },
     messages: {
       forbidden:
-        "Decode the boundary with an explicit schema instead of a generic record guard.",
+        "Let TypeScript infer the type from downstream usage instead of using `isRecord` or another programmatic type check. Do not cast with `as`; only `as const` is allowed.",
     },
     schema: [],
   },
