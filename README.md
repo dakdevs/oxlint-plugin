@@ -38,6 +38,8 @@ It commits a separate `.oxfmtrc.json` when no formatter config exists, with `sin
 
 This follows Oxc's supported auto-discovery for committed [Oxlint configuration](https://oxc.rs/docs/guide/usage/linter/config.html) and separate [Oxfmt configuration](https://oxc.rs/docs/guide/usage/formatter/config.html). The custom `quality` plugin is registered through Oxlint `jsPlugins`, which Oxc currently labels alpha.
 
+The compiled `dist/` entry points are checked in so Bun and other package managers can consume the Git repository directly. Published packages use the same files.
+
 ## Presets
 
 | Preset | Policy |
