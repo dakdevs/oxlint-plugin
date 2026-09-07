@@ -37,6 +37,13 @@ test("recommended config remains available as a conservative opt-down", () => {
   assert.equal(config.rules?.["quality/no-type-assertions"], undefined);
 });
 
+test("core config requires explicit control-flow and return bodies", () => {
+  const config = defineConfig({ presets: ["core"] });
+
+  assert.deepEqual(config.rules?.["arrow-body-style"], ["error", "always"]);
+  assert.deepEqual(config.rules?.curly, ["error", "all"]);
+});
+
 test("strict config prevents duplicate assertion diagnostics", () => {
   const config = defineConfig({ presets: ["type-safety", "strict"] });
 
