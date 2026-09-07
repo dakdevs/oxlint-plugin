@@ -1,0 +1,1 @@
+{"version":3,"file":"effect-platform.d.ts","sourceRoot":"","sources":["../src/effect-platform.ts"],"names":[],"mappings":"AAEA,MAAM,MAAM,kBAAkB,GAAG;IAC/B,QAAQ,CAAC,YAAY,EAAE,MAAM,CAAC;IAC9B,QAAQ,CAAC,KAAK,EAAE,OAAO,CAAC;IACxB,QAAQ,CAAC,QAAQ,EAAE,MAAM,CAAC;CAC3B,CAAC;AAaF,wBAAgB,yBAAyB,IAAI,kBAAkB,CAM9D;AAED,wBAAgB,wBAAwB,CACtC,MAAM,EAAE,kBAAkB,GACzB,MAAM,GAAG,IAAI,CAef"}
