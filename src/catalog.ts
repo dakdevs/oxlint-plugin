@@ -99,6 +99,10 @@ export const ruleCatalog = {
     category: "type-safety",
     origins: ["itstechnight-web"],
   },
+  "padding-line-between-statements": {
+    category: "core",
+    origins: ["dak.dev-2026"],
+  },
   "require-safety-comment-for-type-assertion": {
     category: "type-safety",
     origins: ["itstechnight-web"],
