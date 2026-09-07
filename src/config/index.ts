@@ -35,6 +35,7 @@ const coreConfig = {
     curly: ["error", "all"],
     "quality/no-conditional-empty-object-spread": "error",
     "quality/no-shape-in-symbol-names": "error",
+    "quality/padding-line-between-statements": "error",
   },
 } satisfies OxlintConfig;
 

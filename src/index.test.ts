@@ -23,6 +23,7 @@ const expectedRuleNames = [
   "no-unknown-type-aliases",
   "no-unsafe-dictionary-type",
   "no-widen-then-assert",
+  "padding-line-between-statements",
   "require-safety-comment-for-type-assertion",
 ];
 

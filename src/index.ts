@@ -19,6 +19,7 @@ import { noUnknownReturnsRule } from "./rules/no-unknown-returns.js";
 import { noUnknownTypeAliasesRule } from "./rules/no-unknown-type-aliases.js";
 import { noUnsafeDictionaryTypeRule } from "./rules/no-unsafe-dictionary-type.js";
 import { noWidenThenAssertRule } from "./rules/no-widen-then-assert.js";
+import { paddingLineBetweenStatementsRule } from "./rules/padding-line-between-statements.js";
 import { requireSafetyCommentForTypeAssertionRule } from "./rules/require-safety-comment-for-type-assertion.js";
 
 import { ruleCatalog, sourceRevisions } from "./catalog.js";
@@ -43,6 +44,7 @@ export const qualityRules = {
   "no-unknown-type-aliases": noUnknownTypeAliasesRule,
   "no-unsafe-dictionary-type": noUnsafeDictionaryTypeRule,
   "no-widen-then-assert": noWidenThenAssertRule,
+  "padding-line-between-statements": paddingLineBetweenStatementsRule,
   "require-safety-comment-for-type-assertion":
     requireSafetyCommentForTypeAssertionRule,
 };
