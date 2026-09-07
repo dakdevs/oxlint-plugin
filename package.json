@@ -53,6 +53,7 @@
     "check:integration": "node scripts/package-integration.mjs",
     "check:package": "publint && attw --pack . --profile esm-only",
     "lint": "pnpm build && oxlint src scripts",
+    "prepare": "pnpm build",
     "prepack": "pnpm lint && pnpm test && pnpm typecheck && pnpm build",
     "test": "tsx --test src/*.test.ts src/**/*.test.ts",
     "typecheck": "tsc --noEmit"
