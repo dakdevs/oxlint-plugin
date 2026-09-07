@@ -43,7 +43,7 @@ This follows Oxc's supported auto-discovery for committed [Oxlint configuration]
 | Preset | Policy |
 | --- | --- |
 | `recommended` | Conservative correctness baseline, `core`, and cyclomatic complexity capped at 12 |
-| `core` | Portable quality rules and complexity capped at 12 |
+| `core` | Portable quality rules, explicit arrow-function returns, braced control flow, and complexity capped at 12 |
 | `type-safety` | Assertion evidence, widening, `unknown`, dictionary, and TypeScript syntax policy |
 | `type-aware` | Adopted `typescript/no-unsafe-*` rules with `options.typeAware: true` |
 | `boundaries` | Boundary parsing, reflection, generic record guards, and type predicates |
