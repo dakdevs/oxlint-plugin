@@ -143,6 +143,8 @@ const strictConfig = {
 const effectLocalConfig = {
     plugins: ["import", "node", "promise", "vitest"],
     rules: {
+        // Core requires explicit arrow bodies; do not recommend the opposite style.
+        "effecttsgo/unnecessary-arrow-block": "off",
         "import/no-cycle": "error",
         "import/no-namespace": "error",
         "oxc/no-map-spread": ["error", { ignoreArgs: false }],
