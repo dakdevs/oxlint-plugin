@@ -54,6 +54,25 @@ test("strict config prevents duplicate assertion diagnostics", () => {
   );
 });
 
+test("default and Effect presets do not reject required arrow blocks", () => {
+  const configs = [
+    defineConfig(),
+    defineConfig({ presets: ["all"] }),
+    defineConfig({ presets: ["core", "effect"] }),
+  ];
+
+  for (const config of configs) {
+    assert.deepEqual(config.rules?.["arrow-body-style"], ["error", "always"]);
+    assert.equal(config.rules?.["effecttsgo/unnecessary-arrow-block"], "off");
+    assert.equal(config.rules?.["effecttsgo/floating-effect"], "error");
+  }
+
+  assert.equal(
+    defineConfig({ presets: ["effect"] }).rules?.["effecttsgo/unnecessary-arrow-block"],
+    "off",
+  );
+});
+
 test("local configuration overrides selected presets", () => {
   const config = defineConfig({
     presets: ["boundaries"],
