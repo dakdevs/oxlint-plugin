@@ -159,6 +159,53 @@ try {
   ) {
     throw new Error(`Installed package did not emit the expected rule:\n${lintOutput}`);
   }
+  await writeFile(
+    join(temporaryDirectory, "spacing-config.json"),
+    JSON.stringify({
+      jsPlugins: [
+        {
+          name: "quality",
+          specifier: "./node_modules/@dakdevs/oxlint-plugin/dist/index.js",
+        },
+      ],
+      rules: { "quality/padding-line-between-statements": "error" },
+    }),
+  );
+  await writeFile(
+    join(temporaryDirectory, "spacing-valid.ts"),
+    "function example() {\n  first();\n  second();\n\n  if (ready) {\n    third();\n  }\n\n  finish();\n}\n\nclass Example {}\n",
+  );
+  run(
+    oxlint,
+    ["--config", "spacing-config.json", "spacing-valid.ts"],
+    temporaryDirectory,
+  );
+  await writeFile(
+    join(temporaryDirectory, "spacing-invalid.ts"),
+    "function first() {}\nclass Example {}\n\n\nconsume();\n",
+  );
+  const spacingResult = spawnSync(
+    oxlint,
+    ["--config", "spacing-config.json", "spacing-invalid.ts"],
+    {
+      cwd: temporaryDirectory,
+      encoding: "utf8",
+    },
+  );
+  const spacingOutput = `${spacingResult.stdout}${spacingResult.stderr}`;
+  if (
+    spacingResult.status !== 1 ||
+    !spacingOutput.includes(
+      "Add a blank line around multiline constructs and declarations.",
+    ) ||
+    !spacingOutput.includes(
+      "Use at most one consecutive blank line between statements.",
+    )
+  ) {
+    throw new Error(
+      `Installed spacing rule did not enforce readable groups:\n${spacingOutput}`,
+    );
+  }
 } finally {
   await rm(temporaryDirectory, { force: true, recursive: true });
 }

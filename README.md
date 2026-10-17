@@ -65,6 +65,7 @@ All custom rule IDs use the `quality/` namespace.
 | Category | Rule | Summary |
 | --- | --- | --- |
 | Core | `no-conditional-empty-object-spread` | Reject conditional object spreads that use `{}` as omission control flow |
+| Core | `padding-line-between-statements` | Keep single-line statements together; require one blank line around multiline constructs and function, class, and type declarations; reject consecutive blank lines and padding inside block braces |
 | Core | `no-shape-in-symbol-names` | Require domain-owned names instead of the structural term `shape` |
 | Type safety | `no-chained-type-assertions` | Reject nested assertion chains that discard evidence |
 | Type safety | `no-known-value-widening` | Preserve known values instead of explicitly widening them |
