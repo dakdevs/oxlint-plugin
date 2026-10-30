@@ -1,6 +1,7 @@
 import { ruleCatalog, sourceRevisions } from "./catalog.js";
 export declare const qualityRules: {
     "extensionless-relative-code-imports": import("@oxlint/plugins").Rule;
+    "multiline-objects": import("@oxlint/plugins").Rule;
     "no-chained-type-assertions": import("@oxlint/plugins").Rule;
     "no-conditional-empty-object-spread": import("@oxlint/plugins").Rule;
     "no-exported-types": import("@oxlint/plugins").Rule;

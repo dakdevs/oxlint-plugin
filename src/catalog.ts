@@ -7,6 +7,7 @@ export type RuleCategory =
   | "type-safety";
 
 export type RuleOrigin =
+  | "oxlint-plugin"
   | "dak.dev-2026"
   | "itstechnight-web"
   | "openfactory";
@@ -20,12 +21,16 @@ export const sourceRevisions = {
   "dak.dev-2026": "bff1f55546891403607a6c667bbdbde47e1eaca1",
   "itstechnight-web": "6d1e1ce799dcecb5987e131fa112084761ce06a3",
   openfactory: "29cfc020c97092670601997eadf0a111cc8875bd",
-} satisfies Readonly<Record<RuleOrigin, string>>;
+} satisfies Readonly<Record<Exclude<RuleOrigin, "oxlint-plugin">, string>>;
 
 export const ruleCatalog = {
   "extensionless-relative-code-imports": {
     category: "strict",
     origins: ["openfactory"],
+  },
+  "multiline-objects": {
+    category: "core",
+    origins: ["oxlint-plugin"],
   },
   "no-chained-type-assertions": {
     category: "type-safety",

@@ -11,3 +11,5 @@ The initial package snapshot was assembled on 2026-08-27 from policies already a
 The anti-slop-derived files trace back to [`dmmulroy/anti-slop`](https://github.com/dmmulroy/anti-slop), inspected at revision `6d538555cb151d4121ed51a27db81890eacf8ae9`. Its MIT attribution is retained in `NOTICE`.
 
 Original plugin namespaces (`anti-slop`, `boundaries`, and `type-discipline`) are normalized to `quality`. The two behaviorally equivalent `no-generic-record-guard` implementations are represented by one canonical rule using the typed `@oxlint/plugins` form. Source configuration fixtures remain under `test/fixtures/source-configs/` and are checked for representation by the `all` preset.
+
+`multiline-objects` is original package policy (`oxlint-plugin` origin), added at the maintainer's request. It is not copied from the source snapshots above.

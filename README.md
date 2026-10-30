@@ -65,6 +65,7 @@ All custom rule IDs use the `quality/` namespace.
 | Category | Rule | Summary |
 | --- | --- | --- |
 | Core | `no-conditional-empty-object-spread` | Reject conditional object spreads that use `{}` as omission control flow |
+| Core | `multiline-objects` | Put object literals with multiple properties or nested object/array values on separate lines (autofixable) |
 | Core | `padding-line-between-statements` | Keep single-line statements together; require one blank line around multiline constructs and function, class, and type declarations; reject consecutive blank lines and padding inside block braces |
 | Core | `no-shape-in-symbol-names` | Require domain-owned names instead of the structural term `shape` |
 | Type safety | `no-chained-type-assertions` | Reject nested assertion chains that discard evidence |
@@ -118,3 +119,9 @@ pnpm check
 ## License
 
 MIT. Anti-slop-derived portions retain their original notice in `NOTICE`.
+
+### Multiline objects
+
+`quality/multiline-objects` is enabled by `core`, `recommended`, and `all`. Objects with two or more properties, including spreads, require a line break after the opening brace, between properties, and before the closing brace. A single-property object also requires this layout when its value contains an object or array literal, including inside calls or TypeScript wrappers. Objects inside a function body do not force the containing object to expand. Computed keys, destructuring, imports, and type literals do not trigger the rule. Empty and single flat-property objects may stay inline.
+
+Run `oxlint --fix`, then your formatter. For Oxfmt or Prettier, keep `objectWrap: "preserve"` (the default) so formatting retains the required line breaks. The fixer only inserts whitespace and preserves comments.

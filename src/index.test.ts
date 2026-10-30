@@ -5,6 +5,7 @@ import plugin, { ruleCatalog } from "./index.js";
 
 const expectedRuleNames = [
   "extensionless-relative-code-imports",
+  "multiline-objects",
   "no-chained-type-assertions",
   "no-conditional-empty-object-spread",
   "no-exported-types",

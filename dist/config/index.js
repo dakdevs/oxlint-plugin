@@ -8,6 +8,7 @@ const coreConfig = {
         "arrow-body-style": ["error", "always"],
         complexity: ["error", { max: 12 }],
         curly: ["error", "all"],
+        "quality/multiline-objects": "error",
         "quality/no-conditional-empty-object-spread": "error",
         "quality/no-shape-in-symbol-names": "error",
         "quality/padding-line-between-statements": "error",
