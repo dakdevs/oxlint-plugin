@@ -7,6 +7,7 @@ test("default config enables every quality preset", () => {
   const config = defineConfig();
 
   assert.equal(config.options?.typeAware, true);
+  assert.equal(config.rules?.["quality/multiline-objects"], "error");
   assert.equal(config.rules?.["quality/no-shape-in-symbol-names"], "error");
   assert.equal(config.rules?.["quality/no-known-value-widening"], "error");
   assert.equal(config.rules?.["quality/no-runtime-typeof"], "error");
@@ -42,6 +43,7 @@ test("core config requires explicit control-flow and return bodies", () => {
 
   assert.deepEqual(config.rules?.["arrow-body-style"], ["error", "always"]);
   assert.deepEqual(config.rules?.curly, ["error", "all"]);
+  assert.equal(config.rules?.["quality/multiline-objects"], "error");
 });
 
 test("strict config prevents duplicate assertion diagnostics", () => {

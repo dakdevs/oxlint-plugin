@@ -1,5 +1,5 @@
 export type RuleCategory = "architecture" | "boundaries" | "core" | "strict" | "testing" | "type-safety";
-export type RuleOrigin = "dak.dev-2026" | "itstechnight-web" | "openfactory";
+export type RuleOrigin = "oxlint-plugin" | "dak.dev-2026" | "itstechnight-web" | "openfactory";
 export type RuleMetadata = {
     readonly category: RuleCategory;
     readonly origins: readonly RuleOrigin[];
@@ -13,6 +13,10 @@ export declare const ruleCatalog: {
     "extensionless-relative-code-imports": {
         category: "strict";
         origins: "openfactory"[];
+    };
+    "multiline-objects": {
+        category: "core";
+        origins: "oxlint-plugin"[];
     };
     "no-chained-type-assertions": {
         category: "type-safety";

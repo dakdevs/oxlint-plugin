@@ -8,6 +8,10 @@ export const ruleCatalog = {
         category: "strict",
         origins: ["openfactory"],
     },
+    "multiline-objects": {
+        category: "core",
+        origins: ["oxlint-plugin"],
+    },
     "no-chained-type-assertions": {
         category: "type-safety",
         origins: ["itstechnight-web"],

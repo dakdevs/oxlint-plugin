@@ -160,6 +160,29 @@ try {
     throw new Error(`Installed package did not emit the expected rule:\n${lintOutput}`);
   }
   await writeFile(
+    join(temporaryDirectory, "objects.ts"),
+    "export const options = { first: 1, second: { values: [1, 2] } };\n",
+  );
+  const objectResult = spawnSync(oxlint, ["objects.ts"], {
+    cwd: temporaryDirectory,
+    encoding: "utf8",
+  });
+  if (objectResult.status !== 1 || !objectResult.stdout.includes("multiline-objects")) {
+    throw new Error(`Default preset did not reject inline objects: ${objectResult.stdout}${objectResult.stderr}`);
+  }
+  run(oxlint, ["--fix", "objects.ts"], temporaryDirectory);
+  run(oxfmt, ["objects.ts"], temporaryDirectory);
+  const formattedObjects = await readFile(join(temporaryDirectory, "objects.ts"), "utf8");
+  const expectedObjects = "export const options = {\n  first: 1,\n  second: {\n    values: [1, 2],\n  },\n}\n";
+  if (formattedObjects !== expectedObjects) {
+    throw new Error(`Object formatting differs from expected layout: ${formattedObjects}`);
+  }
+  run(oxlint, ["objects.ts"], temporaryDirectory);
+  run(oxfmt, ["objects.ts"], temporaryDirectory);
+  if (await readFile(join(temporaryDirectory, "objects.ts"), "utf8") !== formattedObjects) {
+    throw new Error("Formatting changed multiline objects on the second pass.");
+  }
+  await writeFile(
     join(temporaryDirectory, "spacing-config.json"),
     JSON.stringify({
       jsPlugins: [

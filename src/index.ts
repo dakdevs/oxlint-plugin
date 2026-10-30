@@ -1,6 +1,7 @@
 import { eslintCompatPlugin } from "@oxlint/plugins";
 
 import { extensionlessRelativeCodeImportsRule } from "./rules/extensionless-relative-code-imports.js";
+import { multilineObjectsRule } from "./rules/multiline-objects.js";
 import { noChainedTypeAssertionsRule } from "./rules/no-chained-type-assertions.js";
 import { noConditionalEmptyObjectSpreadRule } from "./rules/no-conditional-empty-object-spread.js";
 import { noExportedTypesRule } from "./rules/no-exported-types.js";
@@ -26,6 +27,7 @@ import { ruleCatalog, sourceRevisions } from "./catalog.js";
 
 export const qualityRules = {
   "extensionless-relative-code-imports": extensionlessRelativeCodeImportsRule,
+  "multiline-objects": multilineObjectsRule,
   "no-chained-type-assertions": noChainedTypeAssertionsRule,
   "no-conditional-empty-object-spread": noConditionalEmptyObjectSpreadRule,
   "no-exported-types": noExportedTypesRule,
